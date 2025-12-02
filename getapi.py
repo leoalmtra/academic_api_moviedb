@@ -23,12 +23,17 @@ def consultar_filme(titulo):
 
     filme = dados["results"][0]  # pega o primeiro resultado
 
-    titulo_filme = filme.get("title", "Não informado")
-    ano = filme.get("release_date", "Não informado")[:4]
-    sinopse = filme.get("overview", "Sinopse não disponível")
+    titulo_filme = filme.get("title") or "Não informado"
+    release_date = filme.get("release_date")
+    if release_date:
+        ano = release_date[:4]
+    else:
+        ano = "S/D"
+    sinopse = filme.get("overview") or "Não há sinopse disponível"
 
     return {
         "titulo": titulo_filme,
         "ano": ano,
         "sinopse": sinopse
+
     }
